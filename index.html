@@ -1098,9 +1098,9 @@ function imgFallback(img) {
   const alt = img.dataset.alt;
   if (alt && img.src !== alt) { img.src = alt; return; }
   const box = img.closest('.card-photo, .ci-photo, .pp-main, .hero-slide, .hero-arch');
-  const name = box && box.closest('[data-name]')?.dataset.name;
+  const name = box && box.closest('[data-name]').dataset.name;
   img.remove();
-  if (box) box.insertAdjacentHTML('beforeend', `<div class="ph">${esc(name?.[0] || 'Ф')}</div>`);
+  if (box) box.insertAdjacentHTML('beforeend', `<div class="ph">${esc((name && name[0]) || 'Ф')}</div>`);
 }
 
 try { cart = JSON.parse(localStorage.getItem('forma_cart') || '{}'); } catch(e) { cart = {}; }
@@ -1989,7 +1989,7 @@ function renderGallery(p) {
   const img = $('#ppImg');
   if (ppPhoto >= photos.length) ppPhoto = 0;
   if (photos.length && img) {
-    main.querySelector('.ph')?.remove();
+    var phEl = main.querySelector('.ph'); if (phEl) phEl.remove();
     img.style.display = '';
     img.onerror = () => imgFallback(img);
     img.src = photos[ppPhoto].thumb;
@@ -2476,9 +2476,9 @@ $('#searchInput').addEventListener('input', e => {
   window.scrollTo(0, 0);
 });
 
-$('#tilesPrev')?.addEventListener('click', () => $('#tiles').scrollBy({ left: -$('#tiles').clientWidth * 0.8, behavior: 'smooth' }));
-$('#tilesNext')?.addEventListener('click', () => $('#tiles').scrollBy({ left: $('#tiles').clientWidth * 0.8, behavior: 'smooth' }));
-$('#tiles')?.addEventListener('scroll', updateTilesArrows);
+var tilesPrevBtn = $('#tilesPrev'); if (tilesPrevBtn) tilesPrevBtn.addEventListener('click', () => $('#tiles').scrollBy({ left: -$('#tiles').clientWidth * 0.8, behavior: 'smooth' }));
+var tilesNextBtn = $('#tilesNext'); if (tilesNextBtn) tilesNextBtn.addEventListener('click', () => $('#tiles').scrollBy({ left: $('#tiles').clientWidth * 0.8, behavior: 'smooth' }));
+var tilesEl = $('#tiles'); if (tilesEl) tilesEl.addEventListener('scroll', updateTilesArrows);
 window.addEventListener('resize', updateTilesLayout);
 
 $('#cartOpen').addEventListener('click', openDrawer);
