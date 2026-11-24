@@ -1,0 +1,7 @@
+.idea/
+.netlify/
+netlify/
+netlify.toml
+PROJECT.md
+AGENTS.md
+.DS_Store
